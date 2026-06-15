@@ -376,83 +376,24 @@
     <a data-page="photographers" href="#photographers">摄影师</a>
     <a data-page="readings" href="#readings">文献</a>
     <a data-page="analysis" href="#analysis">分析</a>
+    <a data-page="archive" href="#archive">档案</a>
     <a data-page="about" href="#about">关于</a>
   </div>
 </nav>
 
 <div class="page active" id="page-home">
   <div class="home-main">
-    <!-- Cover -->
-    <div class="featured-image">
-      <img src="images/project-01.jpg" alt="Endless Summer" />
-    </div>
-    <div class="image-info">
-      <div class="left">
-        <span>无尽夏日</span>
-        <span>2026</span>
-      </div>
-      <div class="right">
-        <span>函馆</span>
-      </div>
-    </div>
-
-    <!-- Project Intro -->
-    <div class="project-intro">
-      <p>雪落在海边的时候，我想起夏天。</p>
-      <p>于是开始记录那些已经结束，却始终没有离开的东西。</p>
-    </div>
-
-    <!-- Gallery -->
+    <div class="featured-image"><img src="images/project-01.jpg" alt="Endless Summer" /></div>
+    <div class="image-info"><div class="left"><span>无尽夏日</span><span>2026</span></div><div class="right"><span>函馆</span></div></div>
+    <div class="project-intro"><p>雪落在海边的时候，我想起夏天。</p><p>于是开始记录那些已经结束，却始终没有离开的东西。</p></div>
     <div class="gallery">
-      <div class="gallery-item">
-        <img src="images/project-02.jpg" alt="" />
-        <div class="gallery-caption">
-          <div class="cap-title">积雪的街道</div>
-          <div class="cap-location">函馆</div>
-          <div class="cap-note">雪还在飘。路上的车开得很慢，几乎听不到声音。</div>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/project-03.jpg" alt="" />
-        <div class="gallery-caption">
-          <div class="cap-title">空公园</div>
-          <div class="cap-location">函馆</div>
-          <div class="cap-note">椅子都空着。雪把秋千埋了一半。</div>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/project-04.jpg" alt="" />
-        <div class="gallery-caption">
-          <div class="cap-title">停车场</div>
-          <div class="cap-location">札幌 · 北海道大学</div>
-          <div class="cap-note">阳光很好。车一排一排停着，挤得满满当当。</div>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/project-05.jpg" alt="" />
-        <div class="gallery-caption">
-          <div class="cap-title">雾中</div>
-          <div class="cap-location">函馆</div>
-          <div class="cap-note">看不清远处。路在这里拐了个弯。</div>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/project-06.jpg" alt="" />
-        <div class="gallery-caption">
-          <div class="cap-title">路边</div>
-          <div class="cap-location">函馆</div>
-          <div class="cap-note">傍晚的光很短。走了很久才回到住的地方。</div>
-        </div>
-      </div>
+      <div class="gallery-item"><img src="images/project-02.jpg" alt="" /><div class="gallery-caption"><div class="cap-title">积雪的街道</div><div class="cap-location">函馆</div><div class="cap-note">雪还在飘。路上的车开得很慢，几乎听不到声音。</div></div></div>
+      <div class="gallery-item"><img src="images/project-03.jpg" alt="" /><div class="gallery-caption"><div class="cap-title">空公园</div><div class="cap-location">函馆</div><div class="cap-note">椅子都空着。雪把秋千埋了一半。</div></div></div>
+      <div class="gallery-item"><img src="images/project-04.jpg" alt="" /><div class="gallery-caption"><div class="cap-title">停车场</div><div class="cap-location">札幌 · 北海道大学</div><div class="cap-note">阳光很好。车一排一排停着，挤得满满当当。</div></div></div>
+      <div class="gallery-item"><img src="images/project-05.jpg" alt="" /><div class="gallery-caption"><div class="cap-title">雾中</div><div class="cap-location">函馆</div><div class="cap-note">看不清远处。路在这里拐了个弯。</div></div></div>
+      <div class="gallery-item"><img src="images/project-06.jpg" alt="" /><div class="gallery-caption"><div class="cap-title">路边</div><div class="cap-location">函馆</div><div class="cap-note">傍晚的光很短。走了很久才回到住的地方。</div></div></div>
     </div>
-
-    <!-- About Footer -->
-    <div class="about-footer">
-      <p>这些照片拍于 2026 年冬天，北海道函馆。</p>
-      <p>本来想拍夏天，但到的时候雪还没化。</p>
-      <p>那就拍雪吧。反正夏天迟早要来。</p>
-      <div class="author">tglld</div>
-    </div>
+    <div class="about-footer"><p>这些照片拍于 2026 年冬天，北海道函馆。</p><p>本来想拍夏天，但到的时候雪还没化。</p><p>那就拍雪吧。反正夏天迟早要来。</p><div class="author">tglld</div></div>
   </div>
   <footer class="site-footer">&copy; 2026 tglld</footer>
 </div>
@@ -601,6 +542,21 @@
   </div>
 </div>
 
+<div class="page" id="page-archive">
+  <div class="container">
+    <div class="page-header"><h2>摄影档案</h2><p class="subtitle" id="archiveCount">加载中…</p></div>
+    <div class="filter-bar" id="filterBar" style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:40px;justify-content:center;">
+      <select id="filterLocation" style="padding:6px 12px;font-size:11px;border:1px solid #e0e0e0;background:#fff;color:#555;font-family:inherit;outline:none;min-width:120px;"><option value="">全部地点</option></select>
+      <select id="filterYear" style="padding:6px 12px;font-size:11px;border:1px solid #e0e0e0;background:#fff;color:#555;font-family:inherit;outline:none;min-width:120px;"><option value="">全部年份</option></select>
+      <select id="filterProject" style="padding:6px 12px;font-size:11px;border:1px solid #e0e0e0;background:#fff;color:#555;font-family:inherit;outline:none;min-width:120px;"><option value="">全部项目</option></select>
+      <input type="text" id="filterKeyword" placeholder="搜索关键词…" style="padding:6px 12px;font-size:11px;border:1px solid #e0e0e0;background:#fff;color:#555;font-family:inherit;outline:none;min-width:120px;" />
+      <button class="filter-reset" id="filterReset" style="font-size:11px;color:#888;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;">清除筛选</button>
+      <span class="filter-count" id="filterCount" style="font-size:11px;color:#aaa;margin-left:auto;"></span>
+    </div>
+    <div class="archive-grid" id="archiveGrid" style="display:grid;grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;"></div>
+  </div>
+</div>
+
 <div class="page" id="page-about">
   <div class="container">
     <div class="page-header"><h2>关于</h2><p class="subtitle">About</p></div>
@@ -614,6 +570,7 @@
 </div>
 
 <script>
+var EMBEDDED_DATA=[{"file":"project-01.jpg","title":"无尽夏日","location":"函馆","date":"2026","project":"无尽夏日","keywords":["海边","冬季","雪"],"notes":"雪落在海边的时候，我想起夏天。","featured":true},{"file":"project-02.jpg","title":"积雪的街道","location":"函馆","date":"2026","project":"无尽夏日","keywords":["街道","雪","冬季"],"notes":"雪还在飘","featured":true},{"file":"project-03.jpg","title":"空公园","location":"函馆","date":"2026","project":"无尽夏日","keywords":["公园","冬季","空旷"],"notes":"椅子都空着","featured":false},{"file":"project-04.jpg","title":"停车场","location":"札幌","date":"2026","project":"无尽夏日","keywords":["停车场","大学","阳光"],"notes":"北海道大学","featured":true},{"file":"project-05.jpg","title":"雾中","location":"函馆","date":"2026","project":"无尽夏日","keywords":["雾","冬季","街道"],"notes":"看不清远处","featured":false},{"file":"project-06.jpg","title":"路边","location":"函馆","date":"2026","project":"无尽夏日","keywords":["傍晚","街道","冬季"],"notes":"傍晚的光很短","featured":false},{"file":"微信图片_20260615140029_162_6.jpg","title":"待命名","location":"待填写","date":"待填写","project":"待归档","keywords":["待填写"],"notes":"待填写","featured":false},{"file":"微信图片_20260615140038_163_6.jpg","title":"待命名","location":"待填写","date":"待填写","project":"待归档","keywords":["待填写"],"notes":"待填写","featured":false},{"file":"微信图片_20260615140139_164_6.jpg","title":"待命名","location":"待填写","date":"待填写","project":"待归档","keywords":["待填写"],"notes":"待填写","featured":false},{"file":"微信图片_20260615140151_165_6.jpg","title":"待命名","location":"待填写","date":"待填写","project":"待归档","keywords":["待填写"],"notes":"待填写","featured":false},{"file":"微信图片_20260615140202_166_6.jpg","title":"待命名","location":"待填写","date":"待填写","project":"待归档","keywords":["待填写"],"notes":"待填写","featured":false},{"file":"微信图片_20260615140206_167_6.jpg","title":"待命名","location":"待填写","date":"待填写","project":"待归档","keywords":["待填写"],"notes":"待填写","featured":false},{"file":"微信图片_20260615140214_168_6.jpg","title":"待命名","location":"待填写","date":"待填写","project":"待归档","keywords":["待填写"],"notes":"待填写","featured":false},{"file":"微信图片_20260615140223_169_6.jpg","title":"待命名","location":"待填写","date":"待填写","project":"待归档","keywords":["待填写"],"notes":"待填写","featured":false},{"file":"微信图片_20260615140246_170_6.jpg","title":"待命名","location":"待填写","date":"待填写","project":"待归档","keywords":["待填写"],"notes":"待填写","featured":false},{"file":"微信图片_20260615140300_171_6.jpg","title":"待命名","location":"待填写","date":"待填写","project":"待归档","keywords":["待填写"],"notes":"待填写","featured":false},{"file":"微信图片_20260615140435_172_6.jpg","title":"待命名","location":"待填写","date":"待填写","project":"待归档","keywords":["待填写"],"notes":"待填写","featured":false},{"file":"微信图片_20260615140442_173_6.jpg","title":"待命名","location":"待填写","date":"待填写","project":"待归档","keywords":["待填写"],"notes":"待填写","featured":false},{"file":"微信图片_20260615140447_174_6.jpg","title":"待命名","location":"待填写","date":"待填写","project":"待归档","keywords":["待填写"],"notes":"待填写","featured":false},{"file":"微信图片_20260615140503_175_6.jpg","title":"待命名","location":"待填写","date":"待填写","project":"待归档","keywords":["待填写"],"notes":"待填写","featured":false},{"file":"微信图片_20260615140518_176_6.jpg","title":"待命名","location":"待填写","date":"待填写","project":"待归档","keywords":["待填写"],"notes":"待填写","featured":false}];
 (function() {
   const selectedKeywords = new Set();
   const inputEl = document.getElementById('keywordInput');
@@ -1411,6 +1368,48 @@
       setTimeout(showMockAnalysis, 1200);
     });
   }
+
+  var archiveData=[], archiveEdits={};
+  function loadArchive(){
+    try{ archiveEdits=JSON.parse(localStorage.getItem('archiveEdits')||'{}'); }catch(e){ archiveEdits={}; }
+    archiveData=EMBEDDED_DATA.map(function(p){ var e=archiveEdits[p.file]; return e?Object.assign({},p,e):p; });
+    renderArchive(); updateFilters();
+    document.getElementById('archiveCount').textContent=archiveData.length+' 张照片';
+  }
+  function saveEdits(){ localStorage.setItem('archiveEdits',JSON.stringify(archiveEdits)); }
+  function renderArchive(){var g=document.getElementById('archiveGrid');var d=applyFilters();document.getElementById('filterCount').textContent=d.length+' 张';if(d.length===0){g.innerHTML='<div class="empty-state"><p>没有匹配的照片</p></div>';return;}g.innerHTML=d.map(function(p){return '<div class="archive-card" data-file="'+p.file+'" style="cursor:pointer;" onclick="window.navigateToSingle(\''+p.file+'\')"><img src="images/'+p.file+'" alt="'+p.title+'" loading="lazy" style="width:100%;height:auto;display:block;" /><div style="padding:14px 0;"><div style="font-size:14px;color:#111;font-weight:400;letter-spacing:0.03em;">'+p.title+(p.featured?' <span style="font-size:9px;color:#111;letter-spacing:0.06em;text-transform:uppercase;">★</span>':'')+'</div><div style="font-size:10px;color:#aaa;letter-spacing:0.04em;margin-top:4px;text-transform:uppercase;">'+p.location+' · '+p.date+'</div></div></div>';}).join('');}
+  function applyFilters(){var cf={location:document.getElementById('filterLocation').value,year:document.getElementById('filterYear').value,project:document.getElementById('filterProject').value,keyword:document.getElementById('filterKeyword').value.trim().toLowerCase()};var d=archiveData;if(cf.location)d=d.filter(function(p){return p.location===cf.location;});if(cf.year)d=d.filter(function(p){return p.date===cf.year||p.date.startsWith(cf.year);});if(cf.project)d=d.filter(function(p){return p.project===cf.project;});if(cf.keyword)d=d.filter(function(p){return p.title.toLowerCase().indexOf(cf.keyword)!==-1||p.location.toLowerCase().indexOf(cf.keyword)!==-1||p.keywords.some(function(k){return k.toLowerCase().indexOf(cf.keyword)!==-1;});});return d;}
+  function updateFilters(){var locs=[];var yrs=[];var prjs=[];archiveData.forEach(function(p){if(locs.indexOf(p.location)===-1)locs.push(p.location);var y=p.date.slice(0,4);if(yrs.indexOf(y)===-1&&y!=='待')yrs.push(y);if(prjs.indexOf(p.project)===-1)prjs.push(p.project);});locs.sort();yrs.sort().reverse();prjs.sort();var sel=function(id,vals){var s=document.getElementById(id);var cur=s.value;s.innerHTML='<option value="">全部</option>'+vals.map(function(v){return '<option value="'+v+'"'+(v===cur?' selected':'')+'>'+v+'</option>';}).join('');};sel('filterLocation',locs);sel('filterYear',yrs);sel('filterProject',prjs);}
+  window.filterByKeyword=function(kw){document.getElementById('filterKeyword').value=kw;renderArchive();};
+  window.navigateToSingle=function(file){var p=archiveData.find(function(x){return x.file===file;});if(!p)return;var pg=document.getElementById('page-single');if(!pg){pg=document.createElement('div');pg.id='page-single';pg.className='page';document.body.appendChild(pg);}pg.innerHTML='<div class="container"><div style="margin-bottom:40px;"><button class="btn btn-outline" onclick="window.backToArchive()">← 返回档案</button></div><div style="max-width:800px;margin:0 auto;"><img src="images/'+p.file+'" alt="" style="width:100%;height:auto;display:block;margin-bottom:24px;" /><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:24px 0;border-top:1px solid #eee;">'+fld('标题','editTitle',p.title+(p.featured?' ★':''))+'<div><div style="font-size:9px;color:#aaa;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;">项目</div><div style="font-size:13px;color:#555;">'+p.project+'</div></div>'+fld('地点','editLocation',p.location)+fld('时间','editDate',p.date)+'</div>'+fld('关键词','editKeywords',p.keywords.join('、'))+'<div style="margin-top:16px;"><div style="font-size:9px;color:#aaa;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;">备注</div><textarea id="editNotes" style="width:100%;padding:8px;border:1px solid #e0e0e0;font-size:13px;color:#555;line-height:1.9;font-family:inherit;background:#fff;min-height:80px;" onchange="window.onEditChange()">'+p.notes+'</textarea></div><div style="margin-top:24px;display:flex;gap:16px;"><button class="btn" onclick="window.saveSingleEdit(\''+p.file+'\')">保存修改</button><button class="btn btn-outline" onclick="window.exportEdits()">导出数据库</button></div></div></div>';document.querySelectorAll('.page').forEach(function(pg_){pg_.classList.remove('active');});pg.classList.add('active');window.scrollTo(0,0);};
+  function fld(label,id,value){ return '<div><div style="font-size:9px;color:#aaa;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;">'+label+'</div><input type="text" id="'+id+'" value="'+value.replace(/"/g,'"')+'" style="width:100%;padding:6px 0;border:none;border-bottom:1px solid #e0e0e0;font-size:13px;color:#555;font-family:inherit;background:transparent;outline:none;" onchange="window.onEditChange()" /></div>'; }
+  window.onEditChange=function(){}; // marker
+  window.saveSingleEdit=function(file){
+    var edits={};
+    var t=document.getElementById('editTitle').value.replace(/ ★$/,'');
+    var l=document.getElementById('editLocation').value;
+    var d=document.getElementById('editDate').value;
+    var k=document.getElementById('editKeywords').value;
+    var n=document.getElementById('editNotes').value;
+    if(t)edits.title=t; if(l)edits.location=l; if(d)edits.date=d;
+    if(k){ var kw=k.split(/[,，、\s]+/).filter(Boolean); if(kw.length)edits.keywords=kw; }
+    edits.notes=n;
+    archiveEdits[file]=edits;
+    saveEdits(); loadArchive(); window.navigateToSingle(file);
+  };
+  window.exportEdits=function(){
+    var merged=EMBEDDED_DATA.map(function(p){ return Object.assign({},p,archiveEdits[p.file]||{}); });
+    var blob=new Blob([JSON.stringify(merged,null,2)],{type:'application/json'});
+    var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+    a.download='photography-data.json'; a.click();
+  };
+  window.backToArchive=function(){document.querySelectorAll('.page').forEach(function(pg_){pg_.classList.remove('active');});var homePg=document.getElementById('page-archive');if(homePg)homePg.classList.add('active');var singlePg=document.getElementById('page-single');if(singlePg)singlePg.classList.remove('active');window.scrollTo(0,0);};
+  document.getElementById('filterLocation').addEventListener('change',function(){renderArchive();});
+  document.getElementById('filterYear').addEventListener('change',function(){renderArchive();});
+  document.getElementById('filterProject').addEventListener('change',function(){renderArchive();});
+  document.getElementById('filterKeyword').addEventListener('input',function(){renderArchive();});
+  document.getElementById('filterReset').addEventListener('click',function(){document.getElementById('filterLocation').value='';document.getElementById('filterYear').value='';document.getElementById('filterProject').value='';document.getElementById('filterKeyword').value='';renderArchive();});
+  loadArchive();
 
   function showMockAnalysis() {
     analysisLoading.style.display = 'none';
