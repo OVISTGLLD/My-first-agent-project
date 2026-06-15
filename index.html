@@ -35,14 +35,6 @@
     padding: 28px 48px;
     background: rgba(255,255,255,0.95);
   }
-  .nav-brand {
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    color: #111;
-    text-decoration: none;
-    cursor: pointer;
-  }
   .nav-links {
     display: flex;
     gap: 40px;
@@ -225,12 +217,6 @@
     font-size: 11px;
     color: #999;
     letter-spacing: 0.04em;
-  }
-
-  @media (max-width: 768px) {
-    .gallery-item img { max-width: 90%; }
-    .gallery-item { margin-bottom: 100px; }
-    .about-footer { padding: 80px 24px 60px; }
   }
 
   /* ── Page Visibility ─────────────── */
@@ -433,8 +419,8 @@
     .project-intro p { font-size: 13px; line-height: 1.9; }
 
     .gallery { padding: 0 0 80px; }
-    .gallery-item { margin-bottom: 80px; }
-    .gallery-item .img-container { max-width: 100%; }
+    .gallery-item { margin-bottom: 80px; overflow: visible; }
+    .gallery-item .img-container { max-width: 100%; overflow: hidden; }
     .gallery-item .img-container img { transition: none; }
     .gallery-item:hover .img-container img { transform: none; }
     .gallery-item .hover-overlay { display: none; }
@@ -1375,10 +1361,6 @@ var EMBEDDED_DATA=[{"file":"project-01.jpg","title":"无尽夏日","location":"�
     link.addEventListener('click',(e)=>{e.preventDefault();navigateTo(link.dataset.page);});
   });
 
-  document.querySelectorAll('.nav-cards a[data-page]').forEach(link=>{
-    link.addEventListener('click',(e)=>{e.preventDefault();navigateTo(link.dataset.page);});
-  });
-
 
 
   // Photographer Knowledge Base
@@ -1522,7 +1504,7 @@ var EMBEDDED_DATA=[{"file":"project-01.jpg","title":"无尽夏日","location":"�
     document.getElementById('archiveCount').textContent=archiveData.length+' 张照片';
   }
   function saveEdits(){ localStorage.setItem('archiveEdits',JSON.stringify(archiveEdits)); }
-  function renderArchive(){var g=document.getElementById('archiveGrid');var d=applyFilters();document.getElementById('filterCount').textContent=d.length+' 张';if(d.length===0){g.innerHTML='<div class="empty-state"><p>没有匹配的照片</p></div>';return;}g.innerHTML=d.map(function(p){return '<div class="archive-card fade-up" data-file="'+p.file+'" style="cursor:pointer;" onclick="window.navigateToSingle(\''+p.file+'\')"><div class="img-container" style="position:relative;overflow:hidden;"><img src="images/'+p.file+'" alt="'+p.title+'" loading="lazy" style="width:100%;height:auto;display:block;" /><div class="hover-overlay"><div class="ho-title">'+p.title+'</div><div class="ho-meta">'+p.location+' · '+p.date+'</div></div></div><div style="padding:14px 0;"><div style="font-size:14px;color:#111;font-weight:400;letter-spacing:0.03em;">'+p.title+(p.featured?' <span style="font-size:9px;color:#111;letter-spacing:0.06em;text-transform:uppercase;">★</span>':'')+'</div><div style="font-size:10px;color:#aaa;letter-spacing:0.04em;margin-top:4px;text-transform:uppercase;">'+p.location+' · '+p.date+'</div></div></div>';}).join('');}
+  function renderArchive(){var g=document.getElementById('archiveGrid');var d=applyFilters();document.getElementById('filterCount').textContent=d.length+' 张';if(d.length===0){g.innerHTML='<div class="empty-state"><p>没有匹配的照片</p></div>';return;}g.innerHTML=d.map(function(p){return '<div class="archive-card fade-up" data-file="'+p.file+'" style="cursor:pointer;" onclick="window.navigateToSingle(\''+p.file+'\')"><div class="img-container" style="position:relative;overflow:hidden;"><img src="images/'+p.file+'" alt="'+p.title+'" loading="lazy" style="width:100%;height:auto;display:block;" /><div class="hover-overlay"><div class="ho-title">'+p.title+'</div><div class="ho-meta">'+p.location+' · '+p.date+'</div></div></div><div style="padding:14px 0;"><div style="font-size:14px;color:#111;font-weight:400;letter-spacing:0.03em;">'+p.title+(p.featured?' <span style="font-size:9px;color:#111;letter-spacing:0.06em;text-transform:uppercase;">★</span>':'')+'</div><div style="font-size:10px;color:#aaa;letter-spacing:0.04em;margin-top:4px;text-transform:uppercase;">'+p.location+' · '+p.date+'</div></div></div>';}).join('');setTimeout(function(){document.querySelectorAll('#archiveGrid .fade-up').forEach(function(el){fadeObserver.observe(el);});},10);}
   function applyFilters(){var cf={location:document.getElementById('filterLocation').value,year:document.getElementById('filterYear').value,project:document.getElementById('filterProject').value,keyword:document.getElementById('filterKeyword').value.trim().toLowerCase()};var d=archiveData;if(cf.location)d=d.filter(function(p){return p.location===cf.location;});if(cf.year)d=d.filter(function(p){return p.date===cf.year||p.date.startsWith(cf.year);});if(cf.project)d=d.filter(function(p){return p.project===cf.project;});if(cf.keyword)d=d.filter(function(p){return p.title.toLowerCase().indexOf(cf.keyword)!==-1||p.location.toLowerCase().indexOf(cf.keyword)!==-1||p.keywords.some(function(k){return k.toLowerCase().indexOf(cf.keyword)!==-1;});});return d;}
   function updateFilters(){var locs=[];var yrs=[];var prjs=[];archiveData.forEach(function(p){if(locs.indexOf(p.location)===-1)locs.push(p.location);var y=p.date.slice(0,4);if(yrs.indexOf(y)===-1&&y!=='待')yrs.push(y);if(prjs.indexOf(p.project)===-1)prjs.push(p.project);});locs.sort();yrs.sort().reverse();prjs.sort();var sel=function(id,vals){var s=document.getElementById(id);var cur=s.value;s.innerHTML='<option value="">全部</option>'+vals.map(function(v){return '<option value="'+v+'"'+(v===cur?' selected':'')+'>'+v+'</option>';}).join('');};sel('filterLocation',locs);sel('filterYear',yrs);sel('filterProject',prjs);}
   window.filterByKeyword=function(kw){document.getElementById('filterKeyword').value=kw;renderArchive();};
