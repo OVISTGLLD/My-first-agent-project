@@ -1345,6 +1345,21 @@ var EMBEDDED_DATA=[{"file":"project-01.jpg","title":"无尽夏日","location":"�
     if(e.key==='Enter'){e.preventDefault();generate();}
   });
 
+  // Hamburger menu
+  var hamburger = document.getElementById('hamburger');
+  var navLinks = document.querySelector('.nav-links');
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  // Close menu when a link is clicked
+  navLinks.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
+  });
+
   // Navigation
   function navigateTo(pageName) {
     document.querySelectorAll('.nav-links a[data-page]').forEach(l=>l.classList.remove('active'));
