@@ -205,11 +205,11 @@
   .gen-input-row { display: flex; gap: 0; margin-bottom: 20px; flex-wrap: wrap; }
   .gen-input-row input {
     flex: 1; min-width: 200px; padding: 16px 0; font-size: 16px;
-    border: none; border-bottom: 1px solid #d0d0d0; color: #111; outline: none;
+    border: none; border-bottom: 1px solid #999; color: #111; outline: none;
     font-family: inherit; transition: border-color 0.3s; background: transparent;
   }
   .gen-input-row input:focus { border-bottom-color: #111; }
-  .gen-input-row input::placeholder { color: #ccc; }
+  .gen-input-row input::placeholder { color: #bbb; }
 
   .btn {
     padding: 12px 0; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
@@ -297,6 +297,41 @@
   .about-section h2 { font-size: 10px; letter-spacing: 0.1em; color: #aaa; text-transform: uppercase; margin-bottom: 16px; font-weight: 400; }
   .about-section p { font-size: 13px; color: #777; line-height: 1.9; margin-bottom: 8px; }
 
+  /* ── Analysis Lab ────────────────────── */
+  .analysis-upload {
+    border: 1px dashed #d0d0d0;
+    padding: 60px 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s;
+    margin-bottom: 40px;
+  }
+  .analysis-upload:hover { border-color: #999; background: #fafafa; }
+  .analysis-upload input[type="file"] { display: none; }
+  .analysis-upload .upload-icon { font-size: 32px; opacity: 0.3; margin-bottom: 16px; }
+  .analysis-upload .upload-text { font-size: 13px; color: #888; }
+  .analysis-upload .upload-hint { font-size: 11px; color: #bbb; margin-top: 8px; }
+
+  .analysis-preview { text-align: center; margin-bottom: 40px; display: none; }
+  .analysis-preview img { max-width: 60%; max-height: 400px; display: block; margin: 0 auto 16px; }
+  .analysis-preview .preview-name { font-size: 11px; color: #aaa; }
+
+  .analysis-result { display: none; animation: fadeIn 0.5s ease; }
+  .analysis-result.visible { display: block; }
+  .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .analysis-card {
+    padding: 28px 0; border-bottom: 1px solid #f0f0f0;
+  }
+  .analysis-card:nth-child(odd) { padding-right: 24px; }
+  .analysis-card:nth-child(even) { padding-left: 24px; }
+  .analysis-card .ac-label {
+    font-size: 10px; letter-spacing: 0.08em; color: #aaa; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .analysis-card .ac-value { font-size: 13px; color: #555; line-height: 1.8; }
+  .analysis-card .ac-score { font-size: 11px; color: #bbb; margin-top: 6px; }
+  @media (max-width: 768px) { .analysis-grid { grid-template-columns: 1fr; } .analysis-card { padding: 20px 0; } .analysis-card:nth-child(odd), .analysis-card:nth-child(even) { padding-left: 0; padding-right: 0; } }
+
   .site-footer {
     text-align: center;
     padding: 40px;
@@ -340,6 +375,7 @@
     <a data-page="project" href="#project">项目生成器</a>
     <a data-page="photographers" href="#photographers">摄影师</a>
     <a data-page="readings" href="#readings">文献</a>
+    <a data-page="analysis" href="#analysis">分析</a>
     <a data-page="about" href="#about">关于</a>
   </div>
 </nav>
@@ -523,6 +559,45 @@
         <div style="font-size: 12px; color: #777; line-height: 1.8;">把 James Baldwin 和 Instagram 放在一起讨论，把政治、美学和日常观察揉成一团。摄影只是借口，他写的是"观看"这个行为本身。</div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="page" id="page-analysis">
+  <div class="container">
+    <div class="page-header"><h2>Photography Analysis Lab</h2><p class="subtitle">上传照片，AI 视觉分析</p></div>
+
+    <div class="analysis-upload" id="analysisUpload">
+      <div class="upload-icon">+</div>
+      <div class="upload-text">拖拽图片到此处，或点击选择文件</div>
+      <div class="upload-hint">支持 JPG / PNG / WebP</div>
+      <input type="file" id="analysisFileInput" accept="image/*" />
+    </div>
+
+    <div class="analysis-preview" id="analysisPreview">
+      <img id="analysisPreviewImg" src="" alt="" />
+      <div class="preview-name" id="analysisPreviewName"></div>
+    </div>
+
+    <div style="text-align:center; margin-bottom:40px; display:none;" id="analysisBtnWrap">
+      <button class="btn" id="analysisBtn">开始分析</button>
+    </div>
+
+    <div class="empty-state" id="analysisLoading" style="display:none;"><p>分析中…</p></div>
+
+    <div class="analysis-result" id="analysisResult">
+      <div class="section"><div class="section-header" style="display:block;"><span class="section-icon"></span><h2>分析结果</h2></div>
+        <div class="analysis-grid">
+          <div class="analysis-card"><div class="ac-label">内容分析</div><div class="ac-value" id="acContent"></div><div class="ac-score" id="acContentScore"></div></div>
+          <div class="analysis-card"><div class="ac-label">构图分析</div><div class="ac-value" id="acComposition"></div><div class="ac-score" id="acCompositionScore"></div></div>
+          <div class="analysis-card"><div class="ac-label">光线分析</div><div class="ac-value" id="acLight"></div><div class="ac-score" id="acLightScore"></div></div>
+          <div class="analysis-card"><div class="ac-label">色彩分析</div><div class="ac-value" id="acColor"></div><div class="ac-score" id="acColorScore"></div></div>
+          <div class="analysis-card"><div class="ac-label">摄影语言分析</div><div class="ac-value" id="acVisualLang"></div><div class="ac-score" id="acVisualLangScore"></div></div>
+          <div class="analysis-card"><div class="ac-label">项目建议</div><div class="ac-value" id="acProject"></div><div class="ac-score" id="acProjectScore"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-state" id="analysisEmpty"><p>上传一张照片开始分析</p></div>
   </div>
 </div>
 
@@ -1103,9 +1178,8 @@
   }
 
   function generate() {
-    let kw = parseInput();
-    if (kw.length===0 && selectedKeywords.size===0) return;
-    if (kw.length===0) kw = [...selectedKeywords];
+    // Always read fresh from input — never mix with old selectedKeywords
+    const kw = parseInput();
     if (kw.length===0) return;
     if (kw.length===1) { const c=['时间','空间','记忆','光','日常','身体','痕迹','沉默']; const comp=c[Math.floor(Math.random()*c.length)]; if(!kw.includes(comp)) kw.push(comp); }
     renderResult(kw, analyzeKeywords(kw));
@@ -1115,28 +1189,35 @@
   document.querySelectorAll('img').forEach(img => { img.loading = 'lazy'; });
 
   function updateChips() {
+    const keywords = new Set(parseInput());
     document.querySelectorAll('.tag-chip').forEach(chip => {
-      chip.classList.toggle('selected', selectedKeywords.has(chip.dataset.kw));
+      chip.classList.toggle('selected', keywords.has(chip.dataset.kw));
     });
-    inputEl.value = [...selectedKeywords].join('、');
   }
 
   document.getElementById('suggestions').addEventListener('click', (e) => {
     const chip = e.target.closest('.tag-chip');
     if (!chip) return;
     const kw = chip.dataset.kw;
-    selectedKeywords.has(kw) ? selectedKeywords.delete(kw) : (selectedKeywords.size<8 && selectedKeywords.add(kw));
+    const keywords = parseInput();
+    if (keywords.includes(kw)) {
+      // Remove this keyword
+      const filtered = keywords.filter(k => k !== kw);
+      inputEl.value = filtered.join('、');
+    } else if (keywords.length < 8) {
+      // Add this keyword
+      keywords.push(kw);
+      inputEl.value = keywords.join('、');
+    }
     updateChips(); generate();
   });
 
   document.getElementById('generateBtn').addEventListener('click', () => {
-    const p = parseInput();
-    if (p.length>0) { p.forEach(k=>selectedKeywords.add(k)); updateChips(); }
     generate();
   });
 
   document.getElementById('clearBtn').addEventListener('click', () => {
-    selectedKeywords.clear(); inputEl.value=''; updateChips();
+    inputEl.value=''; updateChips();
     resultEl.classList.remove('visible'); resultEl.innerHTML=''; emptyStateEl.style.display='';
   });
 
@@ -1144,7 +1225,7 @@
     const all = ['边界','缺席','夏天','工业区','记忆','废墟','光','深夜','流动','陌生人','童年','痕迹','沉默','身体','风','水','城市','荒野','孤独','渴望','时间','镜子','窗口','雾','影子','伤口','呼吸','日常','碎片','回声','街道','黄昏','霓虹','高架','森林','河流','天空','雨','雪','云','走廊','门','墙','石头','沙子','树木','花朵','星辰','噪音','寂静','温度','气味','重量','距离','速度','方向'];
     const c = 3+Math.floor(Math.random()*4);
     const picked = [...all].sort(()=>Math.random()-0.5).slice(0,c);
-    selectedKeywords.clear(); picked.forEach(k=>selectedKeywords.add(k));
+    inputEl.value = picked.join('、');
     updateChips(); generate();
   });
 
@@ -1174,7 +1255,7 @@
   }
 
   inputEl.addEventListener('keydown',(e)=>{
-    if(e.key==='Enter'){e.preventDefault();const p=parseInput();if(p.length>0){p.forEach(k=>selectedKeywords.add(k));updateChips();}generate();}
+    if(e.key==='Enter'){e.preventDefault();generate();}
   });
 
   // Navigation
@@ -1278,6 +1359,122 @@
     if (f.length===0) pgGrid.innerHTML = '<div class="pg-empty">未找到匹配的摄影师</div>';
     else renderPhotographers(f);
   });
+
+  // ═══════════════════════════════════════
+  //  Analysis Lab
+  // ═══════════════════════════════════════
+  const analysisUpload = document.getElementById('analysisUpload');
+  const analysisFileInput = document.getElementById('analysisFileInput');
+  const analysisPreview = document.getElementById('analysisPreview');
+  const analysisPreviewImg = document.getElementById('analysisPreviewImg');
+  const analysisPreviewName = document.getElementById('analysisPreviewName');
+  const analysisBtnWrap = document.getElementById('analysisBtnWrap');
+  const analysisBtn = document.getElementById('analysisBtn');
+  const analysisLoading = document.getElementById('analysisLoading');
+  const analysisResult = document.getElementById('analysisResult');
+  const analysisEmpty = document.getElementById('analysisEmpty');
+
+  if (analysisUpload) {
+    // Click to upload
+    analysisUpload.addEventListener('click', () => analysisFileInput.click());
+    analysisFileInput.addEventListener('change', handleFile);
+    // Drag & drop
+    analysisUpload.addEventListener('dragover', e => { e.preventDefault(); analysisUpload.style.borderColor = '#999'; });
+    analysisUpload.addEventListener('dragleave', () => { analysisUpload.style.borderColor = '#d0d0d0'; });
+    analysisUpload.addEventListener('drop', e => {
+      e.preventDefault(); analysisUpload.style.borderColor = '#d0d0d0';
+      if (e.dataTransfer.files.length) handleFile({ target: { files: e.dataTransfer.files } });
+    });
+  }
+
+  function handleFile(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      analysisPreviewImg.src = ev.target.result;
+      analysisPreviewName.textContent = file.name;
+      analysisPreview.style.display = 'block';
+      analysisUpload.style.display = 'none';
+      analysisBtnWrap.style.display = 'block';
+      analysisResult.classList.remove('visible');
+      analysisEmpty.style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  if (analysisBtn) {
+    analysisBtn.addEventListener('click', () => {
+      analysisBtnWrap.style.display = 'none';
+      analysisLoading.style.display = 'block';
+      analysisResult.classList.remove('visible');
+      setTimeout(showMockAnalysis, 1200);
+    });
+  }
+
+  function showMockAnalysis() {
+    analysisLoading.style.display = 'none';
+    const mocks = [
+      {
+        content: '画面主体为冬日的街道场景。前景被积雪覆盖，道路两旁是低矮的建筑。远处有几个行人的模糊轮廓，穿着深色冬衣。天空呈现均匀的灰色，没有明显的云层结构。',
+        contentScore: '可信度 87%',
+        composition: '采用标准的三分法构图。地平线大约位于画面上方 1/3 处，道路的透视线从右下角向左上方延伸，形成稳定的空间引导。画面左右平衡，没有明显的重心偏移。',
+        compositionScore: '平衡度 8.2/10',
+        light: '光线来自扩散的阴天自然光，没有明显的直射光源。整体为低对比度柔光，阴影边界模糊。色温偏冷（约 5800K），符合冬季阴天的视觉特征。',
+        lightScore: '柔和度 高',
+        color: '主色调为冷灰色系，饱和度和对比度都较低。建筑物墙面呈现淡黄和浅棕色调，与雪地的灰白色形成微弱但有效的冷暖对比。整体色彩分布均匀，没有突出的高饱和色块。',
+        colorScore: '色域 窄 / 冷调',
+        visualLang: '画面呈现纪实摄影的典型特征——自然的透视、未经摆布的街景、朴素的光线。没有明显的主观化处理（如特殊滤镜、倾斜构图）。镜头语言克制、客观，介于 Stephen Shore 和 Robert Adams 之间。',
+        visualLangScore: '风格倾向 纪实 / 新地形',
+        project: '可以考虑以"冬季日常"为主题，在同一地点进行时序拍摄——记录积雪融化、行人变化、光线的季节更替。参考 Rinko Kawauchi 对日常瞬间的诗意捕捉，或 Alec Soth 对地域空间的缓慢观看。',
+        projectScore: '可行性 高',
+      },
+      {
+        content: '画面主体为黄昏时分的海边。远处天空呈现橙粉色调，海面平静，近处有礁石的黑影。海岸线从画面左侧延伸至右下角，右侧远处有灯塔的微小轮廓。',
+        contentScore: '可信度 91%',
+        composition: '采用倾斜的对角线构图。海岸线和天空的渐变层次形成自然的前后景深。灯塔作为视觉支点位于画面右上方，打破了对角线的严谨性，增加了意外的视觉趣味。',
+        compositionScore: '平衡度 7.8/10',
+        light: '典型的黄金时刻光线，太阳已落至地平线以下，天空成为唯一的光源。光线柔和但方向性强，从西向东方延伸。礁石呈现为剪影，天空与海面的亮度差约为 2 档。',
+        lightScore: '方向性 强 / 低色温',
+        color: '色调从橙到紫的渐变贯穿整个画面，海面反射天空的暖色。礁石的纯黑提供了画面中唯一的中性色。色彩情绪属于浪漫主义气质的自然景观。',
+        colorScore: '色域 中 / 暖调',
+        visualLang: '画面具有强烈的浪漫主义自然摄影特征，同时也具备杉本博司式的时间凝视感。长时间曝光可能已经抹平了水面的波纹，使海与天的分界变得模糊。',
+        visualLangScore: '风格倾向 景观 / 极简',
+        project: '可以以"海岸线的余晖"为题，沿同一段海岸线在不同季节、不同天气条件下拍摄。将这组照片与杉本博司的《海景》对照，探讨"慢速观看"在当代摄影中的可能性。',
+        projectScore: '可行性 高',
+      },
+      {
+        content: '室内场景。靠近窗户的区域被柔和光线照亮，室内深处的角落则沉入阴影。窗台上放着一盆植物，叶片边缘有轻微的黄化痕迹。窗外隐约可见建筑的局部。',
+        contentScore: '可信度 83%',
+        composition: '采用了框中有框的构图方式——窗户作为天然框架将室内外空间分割。视线从暗区的室内被引导到亮区的窗台植物，再延伸到窗外的模糊景象。景深控制得当。',
+        compositionScore: '平衡度 8.0/10',
+        light: '单一侧面光源，来自窗户的散射日光。室内光比约为 3:1（高光区与阴影区的亮度差异）。窗台上的植物处于高光区域，使叶片轮廓与纹理清晰可见。',
+        lightScore: '柔和度 高 / 方向性 单侧',
+        color: '室内暗区偏冷（约 6200K），向绿-青偏移；窗台区域因日光照射呈中性白色。植物的绿色因背光而饱和度降低，黄化叶片的边缘增加了色彩的点睛之处。',
+        colorScore: '色域 窄 / 低饱合',
+        visualLang: '画面具有私摄影的亲密感，类似于 Wolfgang Tillmans 对日常空间的处理方式。不追求宏大叙事，而是对光线、静物和空间关系的细腻观察。',
+        visualLangScore: '风格倾向 私摄影 / 静物',
+        project: '建议以"窗边的 365 天"为课题，每天同一时间同一角度拍摄这个窗台。日积月累的变化——植物的生长、光线的季节偏移、窗外的细微差异——将组成一部关于时间和注视的视觉日记。',
+        projectScore: '可行性 极高',
+      },
+    ];
+    const mock = mocks[Math.floor(Math.random() * mocks.length)];
+    document.getElementById('acContent').textContent = mock.content;
+    document.getElementById('acContentScore').textContent = mock.contentScore;
+    document.getElementById('acComposition').textContent = mock.composition;
+    document.getElementById('acCompositionScore').textContent = mock.compositionScore;
+    document.getElementById('acLight').textContent = mock.light;
+    document.getElementById('acLightScore').textContent = mock.lightScore;
+    document.getElementById('acColor').textContent = mock.color;
+    document.getElementById('acColorScore').textContent = mock.colorScore;
+    document.getElementById('acVisualLang').textContent = mock.visualLang;
+    document.getElementById('acVisualLangScore').textContent = mock.visualLangScore;
+    document.getElementById('acProject').textContent = mock.project;
+    document.getElementById('acProjectScore').textContent = mock.projectScore;
+    analysisResult.classList.add('visible');
+    analysisBtnWrap.style.display = 'block';
+    analysisBtn.textContent = '重新分析';
+  }
 
 })();
 </script>
