@@ -128,6 +128,28 @@
     transition: transform 300ms ease;
   }
   .gallery-item:hover .img-container img { transform: scale(1.05); }
+  .archive-card { position: relative; overflow: hidden; }
+  .archive-card .img-container { position: relative; overflow: hidden; }
+  .archive-card .img-container img { transition: transform 300ms ease; display: block; width: 100%; height: auto; }
+  .archive-card:hover .img-container img { transform: scale(1.05); }
+  .archive-card .hover-overlay {
+    position: absolute; inset: 0; background: rgba(0,0,0,0.28);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    opacity: 0; transition: opacity 300ms ease; pointer-events: none;
+    z-index: 1;
+  }
+  .archive-card:hover .hover-overlay { opacity: 1; }
+  .archive-card .hover-overlay .ho-title {
+    font-size: 15px; color: #fff; font-weight: 400;
+    letter-spacing: 0.04em; margin-bottom: 4px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+  .archive-card .hover-overlay .ho-meta {
+    font-size: 10px; color: rgba(255,255,255,0.75);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+
   .gallery-item .hover-overlay {
     position: absolute;
     inset: 0;
@@ -1419,7 +1441,7 @@ var EMBEDDED_DATA=[{"file":"project-01.jpg","title":"无尽夏日","location":"�
     document.getElementById('archiveCount').textContent=archiveData.length+' 张照片';
   }
   function saveEdits(){ localStorage.setItem('archiveEdits',JSON.stringify(archiveEdits)); }
-  function renderArchive(){var g=document.getElementById('archiveGrid');var d=applyFilters();document.getElementById('filterCount').textContent=d.length+' 张';if(d.length===0){g.innerHTML='<div class="empty-state"><p>没有匹配的照片</p></div>';return;}g.innerHTML=d.map(function(p){return '<div class="archive-card" data-file="'+p.file+'" style="cursor:pointer;" onclick="window.navigateToSingle(\''+p.file+'\')"><img src="images/'+p.file+'" alt="'+p.title+'" loading="lazy" style="width:100%;height:auto;display:block;" /><div style="padding:14px 0;"><div style="font-size:14px;color:#111;font-weight:400;letter-spacing:0.03em;">'+p.title+(p.featured?' <span style="font-size:9px;color:#111;letter-spacing:0.06em;text-transform:uppercase;">★</span>':'')+'</div><div style="font-size:10px;color:#aaa;letter-spacing:0.04em;margin-top:4px;text-transform:uppercase;">'+p.location+' · '+p.date+'</div></div></div>';}).join('');}
+  function renderArchive(){var g=document.getElementById('archiveGrid');var d=applyFilters();document.getElementById('filterCount').textContent=d.length+' 张';if(d.length===0){g.innerHTML='<div class="empty-state"><p>没有匹配的照片</p></div>';return;}g.innerHTML=d.map(function(p){return '<div class="archive-card fade-up" data-file="'+p.file+'" style="cursor:pointer;" onclick="window.navigateToSingle(\''+p.file+'\')"><div class="img-container" style="position:relative;overflow:hidden;"><img src="images/'+p.file+'" alt="'+p.title+'" loading="lazy" style="width:100%;height:auto;display:block;" /><div class="hover-overlay"><div class="ho-title">'+p.title+'</div><div class="ho-meta">'+p.location+' · '+p.date+'</div></div></div><div style="padding:14px 0;"><div style="font-size:14px;color:#111;font-weight:400;letter-spacing:0.03em;">'+p.title+(p.featured?' <span style="font-size:9px;color:#111;letter-spacing:0.06em;text-transform:uppercase;">★</span>':'')+'</div><div style="font-size:10px;color:#aaa;letter-spacing:0.04em;margin-top:4px;text-transform:uppercase;">'+p.location+' · '+p.date+'</div></div></div>';}).join('');}
   function applyFilters(){var cf={location:document.getElementById('filterLocation').value,year:document.getElementById('filterYear').value,project:document.getElementById('filterProject').value,keyword:document.getElementById('filterKeyword').value.trim().toLowerCase()};var d=archiveData;if(cf.location)d=d.filter(function(p){return p.location===cf.location;});if(cf.year)d=d.filter(function(p){return p.date===cf.year||p.date.startsWith(cf.year);});if(cf.project)d=d.filter(function(p){return p.project===cf.project;});if(cf.keyword)d=d.filter(function(p){return p.title.toLowerCase().indexOf(cf.keyword)!==-1||p.location.toLowerCase().indexOf(cf.keyword)!==-1||p.keywords.some(function(k){return k.toLowerCase().indexOf(cf.keyword)!==-1;});});return d;}
   function updateFilters(){var locs=[];var yrs=[];var prjs=[];archiveData.forEach(function(p){if(locs.indexOf(p.location)===-1)locs.push(p.location);var y=p.date.slice(0,4);if(yrs.indexOf(y)===-1&&y!=='待')yrs.push(y);if(prjs.indexOf(p.project)===-1)prjs.push(p.project);});locs.sort();yrs.sort().reverse();prjs.sort();var sel=function(id,vals){var s=document.getElementById(id);var cur=s.value;s.innerHTML='<option value="">全部</option>'+vals.map(function(v){return '<option value="'+v+'"'+(v===cur?' selected':'')+'>'+v+'</option>';}).join('');};sel('filterLocation',locs);sel('filterYear',yrs);sel('filterProject',prjs);}
   window.filterByKeyword=function(kw){document.getElementById('filterKeyword').value=kw;renderArchive();};
