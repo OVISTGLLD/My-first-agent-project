@@ -797,28 +797,76 @@
   function genArtists(kw, a) {
     const all = {
       emotional: [
-        {n:'Sophie Calle',w:'《极度疼痛》',d:'私密情感的观念化表达'},{n:'Nan Goldin',w:'《性依赖叙事曲》',d:'亲密关系与自我袒露的影像日记'},{n:'深濑昌久',w:'《鸦》',d:'孤独与失落的极致自省'},{n:'Alec Soth',w:'《眠于密西西比河》',d:'美国腹地的疏离与渴望'},{n:'Rinko Kawauchi',w:'《Utatane》',d:'日常中的微小诗意'},
-        {n:'Sally Mann',w:'《亲密家庭》',d:'夏日童年与南方哥特'},{n:'石内都',w:'《母亲的遗物》',d:'物品承载的记忆与哀悼'},{n:'Paul Graham',w:'《一片微光》',d:'日常中的恬淡叙述'},{n:'Ryan McGinley',w:'《The Kids Are Alright》',d:'青春的自由与脆弱'},{n:'川内伦子',w:'《Illuminance》',d:'光与日常的诗意'},
+        {n:'Sophie Calle',w:'《极度疼痛》',d:'私密情感的观念化表达',l:'https://www.perrotin.com/artists/Sophie_Calle/1',v:1},
+        {n:'Nan Goldin',w:'《性依赖叙事曲》',d:'亲密关系与自我袒露的影像日记',l:'https://www.moma.org/artists/7532',v:1},
+        {n:'深濑昌久',w:'《鸦》',d:'孤独与失落的极致自省',l:'https://www.fukase-masahisa.com',v:1},
+        {n:'Alec Soth',w:'《眠于密西西比河》',d:'美国腹地的疏离与渴望',l:'https://alecsoth.com',v:1},
+        {n:'Rinko Kawauchi',w:'《Utatane》',d:'日常中的微小诗意',l:'https://rinkokawauchi.com',v:1},
+        {n:'Sally Mann',w:'《亲密家庭》',d:'夏日童年与南方哥特',l:'https://sallymann.com',v:1},
+        {n:'石内都',w:'《母亲的遗物》',d:'物品承载的记忆与哀悼',l:null,v:0},
+        {n:'Paul Graham',w:'《一片微光》',d:'日常中的恬淡叙述',l:'https://paulgrahamarchive.com',v:1},
+        {n:'Ryan McGinley',w:'《The Kids Are Alright》',d:'青春的自由与脆弱',l:null,v:0},
+        {n:'川内伦子',w:'《Illuminance》',d:'光与日常的诗意',l:'https://rinkokawauchi.com',v:1},
       ],
       urban: [
-        {n:'Stephen Shore',w:'《不寻常之地》',d:'日常景观的色彩考古'},{n:'Thomas Struth',w:'《无意识之地》',d:'城市街道的类型学凝视'},{n:'Michael Wolf',w:'《建筑密度》',d:'城市密度与人的尺度'},{n:'Nadav Kander',w:'《长江》',d:'变迁中的景观肖像'},{n:'Greg Girard',w:'《HK:PM》',d:'城市暗夜的霓虹与孤寂'},
-        {n:'William Eggleston',w:'《民主森林》',d:'日常之物的色彩民主'},{n:'Joel Sternfeld',w:'《美国前景》',d:'公路旅行的社会景观'},{n:'Luigi Ghirri',w:'《Kodachrome》',d:'意大利日常的诗意色彩'},{n:'Gabriele Basilico',w:'《Beirut 1991》',d:'战后城市的寂静肖像'},{n:'Philip-Lorca diCorcia',w:'《Heads》',d:'城市街头的人像偶然'},
+        {n:'Stephen Shore',w:'《不寻常之地》',d:'日常景观的色彩考古',l:'https://www.303gallery.com/artists/stephen-shore',v:1},
+        {n:'Thomas Struth',w:'《无意识之地》',d:'城市街道的类型学凝视',l:'https://www.thomasstruth.com',v:1},
+        {n:'Michael Wolf',w:'《建筑密度》',d:'城市密度与人的尺度',l:'https://www.michaelwolf.info',v:1},
+        {n:'Nadav Kander',w:'《长江》',d:'变迁中的景观肖像',l:'https://www.nadavkander.com',v:1},
+        {n:'Greg Girard',w:'《HK:PM》',d:'城市暗夜的霓虹与孤寂',l:'https://www.greggirard.com',v:1},
+        {n:'William Eggleston',w:'《民主森林》',d:'日常之物的色彩民主',l:'https://egglestontrust.com',v:1},
+        {n:'Joel Sternfeld',w:'《美国前景》',d:'公路旅行的社会景观',l:null,v:0},
+        {n:'Luigi Ghirri',w:'《Kodachrome》',d:'意大利日常的诗意色彩',l:null,v:0},
+        {n:'Gabriele Basilico',w:'《Beirut 1991》',d:'战后城市的寂静肖像',l:null,v:0},
+        {n:'Philip-Lorca diCorcia',w:'《Heads》',d:'城市街头的人像偶然',l:null,v:0},
       ],
       natural: [
-        {n:'杉本博司',w:'《海景》',d:'时间与水的极致极简'},{n:'Richard Misrach',w:'《沙漠诗篇》',d:'宏大景观中的人类痕迹'},{n:'Jem Southam',w:'《池塘故事》',d:'乡野的缓慢观察'},{n:'山本昌男',w:'《手中一滴》',d:'诗意微观自然'},{n:'Edward Burtynsky',w:'《水》',d:'自然资源与工业景观'},
-        {n:'Michael Kenna',w:'《Hokkaido》',d:'北海道雪景的极简黑白'},{n:'Mark Ruwedel',w:'《Westward the Course of Empire》',d:'废弃铁路与大地景观'},{n:'Sally Gall',w:'《Abandoned》',d:'被遗忘的自然角落'},{n:'Gilles Perrin',w:'《Japon》',d:'日本四季的静谧凝视'},{n:'Robert Adams',w:'《夏夜》',d:'夏季夜晚的光与树'},
+        {n:'杉本博司',w:'《海景》',d:'时间与水的极致极简',l:'https://www.sugimotohiroshi.com',v:1},
+        {n:'Richard Misrach',w:'《沙漠诗篇》',d:'宏大景观中的人类痕迹',l:'https://www.richardmisrach.com',v:1},
+        {n:'Jem Southam',w:'《池塘故事》',d:'乡野的缓慢观察',l:null,v:0},
+        {n:'山本昌男',w:'《手中一滴》',d:'诗意微观自然',l:null,v:0},
+        {n:'Edward Burtynsky',w:'《水》',d:'自然资源与工业景观',l:'https://www.edwardburtynsky.com',v:1},
+        {n:'Michael Kenna',w:'《Hokkaido》',d:'北海道雪景的极简黑白',l:'https://www.michaelkenna.com',v:1},
+        {n:'Mark Ruwedel',w:'《Westward the Course of Empire》',d:'废弃铁路与大地景观',l:null,v:0},
+        {n:'Sally Gall',w:'《Abandoned》',d:'被遗忘的自然角落',l:null,v:0},
+        {n:'Gilles Perrin',w:'《Japon》',d:'日本四季的静谧凝视',l:null,v:0},
+        {n:'Robert Adams',w:'《夏夜》',d:'夏季夜晚的光与树',l:null,v:0},
       ],
       edge: [
-        {n:'Edward Burtynsky',w:'《人造景观》',d:'工业与自然的边界地带'},{n:'Robert Adams',w:'《新西部》',d:'扩张与消退的边界'},{n:'Andreas Gursky',w:'《莱茵河 II》',d:'人工与自然的极致并置'},{n:'张克纯',w:'《北流活活》',d:'中国河流与人的当代景观'},{n:'Mitch Epstein',w:'《美国权力》',d:'能源生产与景观冲突美学'},
-        {n:'Simon Norfolk',w:'《Burke + Norfolk》',d:'战争地景的缓慢变化'},{n:'Sophie Ristelhueber',w:'《Fait》',d:'人类痕迹在地表的残留'},{n:'David Maisel',w:'《The Lake Project》',d:'航拍环境破坏的抽象之美'},{n:'Josef Koudelka',w:'《Wall》',d:'以色列隔离墙的景观记录'},{n:'Shomei Tomatsu',w:'《Chewing Gum and Chocolate》',d:'战后日本的文化边界'},
+        {n:'Edward Burtynsky',w:'《人造景观》',d:'工业与自然的边界地带',l:'https://www.edwardburtynsky.com',v:1},
+        {n:'Robert Adams',w:'《新西部》',d:'扩张与消退的边界',l:null,v:0},
+        {n:'Andreas Gursky',w:'《莱茵河 II》',d:'人工与自然的极致并置',l:'https://www.andreasgursky.com',v:1},
+        {n:'张克纯',w:'《北流活活》',d:'中国河流与人的当代景观',l:null,v:0},
+        {n:'Mitch Epstein',w:'《美国权力》',d:'能源生产与景观冲突美学',l:'https://mitchepstein.net',v:1},
+        {n:'Simon Norfolk',w:'《Burke + Norfolk》',d:'战争地景的缓慢变化',l:null,v:0},
+        {n:'Sophie Ristelhueber',w:'《Fait》',d:'人类痕迹在地表的残留',l:null,v:0},
+        {n:'David Maisel',w:'《The Lake Project》',d:'航拍环境破坏的抽象之美',l:null,v:0},
+        {n:'Josef Koudelka',w:'《Wall》',d:'以色列隔离墙的景观记录',l:'https://www.magnumphotos.com/photographer/josef-koudelka/',v:1},
+        {n:'Shomei Tomatsu',w:'《Chewing Gum and Chocolate》',d:'战后日本的文化边界',l:null,v:0},
       ],
       memorial: [
-        {n:'石内都',w:'《母亲的遗物》',d:'物品承载的记忆与哀悼'},{n:'Christian Boltanski',w:'《人类》',d:'档案、记忆与缺席的诗学'},{n:'Paul Graham',w:'《一片微光》',d:'时间流逝中的平凡瞬间'},{n:'Sally Mann',w:'《亲密家庭》',d:'家庭与南方哥特'},{n:'Taryn Simon',w:'《无罪者》',d:'档案式摄影调查'},
-        {n:'Sophie Calle',w:'《极度疼痛》',d:'私密情感与时间创伤'},{n:'深濑昌久',w:'《鸦》',d:'失落记忆的极致自省'},{n:'Collier Schorr',w:'《Jens F.》',d:'身份与记忆的交织'},{n:'Diana Markosian',w:'《1915》',d:'家族历史的影像追寻'},{n:'Larry Sultan',w:'《Pictures From Home》',d:'家庭影像的温暖考古'},
+        {n:'石内都',w:'《母亲的遗物》',d:'物品承载的记忆与哀悼',l:null,v:0},
+        {n:'Christian Boltanski',w:'《人类》',d:'档案、记忆与缺席的诗学',l:null,v:0},
+        {n:'Paul Graham',w:'《一片微光》',d:'时间流逝中的平凡瞬间',l:'https://paulgrahamarchive.com',v:1},
+        {n:'Sally Mann',w:'《亲密家庭》',d:'家庭与南方哥特',l:'https://sallymann.com',v:1},
+        {n:'Taryn Simon',w:'《无罪者》',d:'档案式摄影调查',l:'https://tarynsimon.com',v:1},
+        {n:'Sophie Calle',w:'《极度疼痛》',d:'私密情感与时间创伤',l:'https://www.perrotin.com/artists/Sophie_Calle/1',v:1},
+        {n:'深濑昌久',w:'《鸦》',d:'失落记忆的极致自省',l:'https://www.fukase-masahisa.com',v:1},
+        {n:'Collier Schorr',w:'《Jens F.》',d:'身份与记忆的交织',l:null,v:0},
+        {n:'Diana Markosian',w:'《1915》',d:'家族历史的影像追寻',l:null,v:0},
+        {n:'Larry Sultan',w:'《Pictures From Home》',d:'家庭影像的温暖考古',l:null,v:0},
       ],
       neutral: [
-        {n:'Wolfgang Tillmans',w:'《新世界》',d:'多元观看方式自由切换'},{n:'William Eggleston',w:'《民主森林》',d:'日常之物的色彩民主'},{n:'Jeff Wall',w:'《被毁坏的房间》',d:'精心构置的影像叙事'},{n:'Todd Hido',w:'《房屋狩猎》',d:'郊区夜间的孤独肖像'},{n:'Viviane Sassen',w:'《Umbra》',d:'身体与空间的超现实'},
-        {n:'Christopher Williams',w:'《For Example: Dix-Huit Leçons》',d:'摄影媒介的自我审视'},{n:'Roe Ethridge',w:'《Le Luxe》',d:'商业与艺术的模糊边界'},{n:'Torbjørn Rødland',w:'《Confabulations》',d:'日常中的诡异与陌生'},{n:'Yto Barrada',w:'《A Guide to Trees》',d:'植物、殖民与日常政治'},{n:'Deana Lawson',w:'《An Ode to Blackness》',d:'社区与身份的环境肖像'},
+        {n:'Wolfgang Tillmans',w:'《新世界》',d:'多元观看方式自由切换',l:'https://tillmans.co.uk',v:1},
+        {n:'William Eggleston',w:'《民主森林》',d:'日常之物的色彩民主',l:'https://egglestontrust.com',v:1},
+        {n:'Jeff Wall',w:'《被毁坏的房间》',d:'精心构置的影像叙事',l:null,v:0},
+        {n:'Todd Hido',w:'《房屋狩猎》',d:'郊区夜间的孤独肖像',l:'https://www.toddhido.com',v:1},
+        {n:'Viviane Sassen',w:'《Umbra》',d:'身体与空间的超现实',l:'https://www.vivianesassen.com',v:1},
+        {n:'Christopher Williams',w:'《For Example: Dix-Huit Leçons》',d:'摄影媒介的自我审视',l:null,v:0},
+        {n:'Roe Ethridge',w:'《Le Luxe》',d:'商业与艺术的模糊边界',l:null,v:0},
+        {n:'Torbjørn Rødland',w:'《Confabulations》',d:'日常中的诡异与陌生',l:null,v:0},
+        {n:'Yto Barrada',w:'《A Guide to Trees》',d:'植物、殖民与日常政治',l:null,v:0},
+        {n:'Deana Lawson',w:'《An Ode to Blackness》',d:'社区与身份的环境肖像',l:null,v:0},
       ],
     };
     const pool = all[a.primaryTone]||all.neutral;
@@ -856,7 +904,10 @@
       </div>
       <div class="section">
         <div class="section-header"><span class="section-icon">🎨</span><h2>参考艺术家</h2></div>
-        <ul class="artist-list">${ar.map(a=>`<li><strong>${a.n}</strong><span>${a.w} — ${a.d}</span></li>`).join('')}</ul>
+        <ul class="artist-list">${ar.map(a=>{
+      const linkHtml = a.l ? `<a href="${a.l}" target="_blank" rel="noopener">${a.n}</a>${a.v ? '' : ' <span class="unverified">⚠待核实</span>'}` : `<span>${a.n}</span> <span class="unverified">⚠待核实</span>`;
+      return `<li><strong>${linkHtml}</strong><span>${a.w} — ${a.d}</span></li>`;
+    }).join('')}</ul>
       </div>
       <div class="section">
         <div class="section-header"><span class="section-icon">🏛️</span><h2>展览方案</h2></div>
