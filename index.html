@@ -405,21 +405,85 @@
     text-transform: uppercase;
   }
 
+  /* ── Hamburger ── */
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 200; }
+  .hamburger span { display: block; width: 22px; height: 1.5px; background: #111; transition: transform 0.3s ease, opacity 0.3s ease; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
   @media (max-width: 768px) {
-    .nav { padding: 20px 24px; }
-    .nav-links { gap: 20px; }
-    .image-info { padding: 12px 24px; flex-direction: column; gap: 8px; }
+    body { font-size: 14px; }
+    .nav { padding: 16px 20px; }
+    .hamburger { display: flex; margin-left: auto; }
+    .nav-links {
+      position: fixed; top: 0; right: -100%; width: 70%; max-width: 280px; height: 100vh;
+      background: rgba(255,255,255,0.98); flex-direction: column; gap: 0; padding: 80px 28px 40px;
+      transition: right 0.35s ease; z-index: 150; box-shadow: -2px 0 20px rgba(0,0,0,0.06);
+    }
+    .nav-links.open { right: 0; }
+    .nav-links a { font-size: 14px; padding: 14px 0; border-bottom: 1px solid #f0f0f0; letter-spacing: 0.04em; }
+    .nav-links a:last-child { border-bottom: none; }
+
+    .home-main { padding-top: 60px; }
+    .featured-image img { max-height: 60vh; }
+    .image-info { padding: 12px 20px; flex-direction: column; gap: 6px; font-size: 12px; }
     .image-info .right { text-align: left; }
-    .project-intro { margin: 40px auto 80px; padding: 0 24px; }
-    .project-intro .nav-cards { flex-direction: column; gap: 16px; }
-    .container { padding: 100px 24px 60px; }
-    .section { padding: 24px; }
-    .artist-list, .exhibition-grid { grid-template-columns: 1fr; }
+    .project-intro { margin: 40px auto 60px; padding: 0 20px; max-width: 100%; }
+    .project-intro p { font-size: 13px; line-height: 1.9; }
+
+    .gallery { padding: 0 0 80px; }
+    .gallery-item { margin-bottom: 80px; }
+    .gallery-item .img-container { max-width: 100%; }
+    .gallery-item .img-container img { transition: none; }
+    .gallery-item:hover .img-container img { transform: none; }
+    .gallery-item .hover-overlay { display: none; }
+    .gallery-caption { padding: 0 16px; margin-top: 16px; }
+    .gallery-caption .cap-title { font-size: 14px; }
+    .gallery-caption .cap-location { font-size: 11px; }
+    .gallery-caption .cap-note { font-size: 12px; }
+
+    .container { padding: 80px 20px 60px; }
+    .page-header { padding: 20px 0 40px; }
+    .page-header h2 { font-size: 18px; }
+    .page-header .subtitle { font-size: 12px; }
+
     .gen-input-row { flex-direction: column; }
-    .gen-input-row input { min-width: 100%; }
-    .btn-row { gap: 8px; }
-    .btn-row .btn { flex: 1; text-align: center; }
+    .gen-input-row input { min-width: 100%; font-size: 14px; padding: 12px 0; }
+    .btn { margin-left: 0; margin-top: 12px; }
+    .btn-row { gap: 8px; flex-wrap: wrap; }
+    .btn-row .btn { margin-left: 0; margin-top: 0; }
+
+    .artist-list, .exhibition-grid { grid-template-columns: 1fr; }
     .pg-grid { grid-template-columns: 1fr; }
+    .pg-search { max-width: 100%; margin-bottom: 40px; }
+    .pg-card { padding: 24px 0; }
+    .pg-card h3 { font-size: 14px; }
+    .pg-card .bio { font-size: 12px; }
+
+    .archive-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+    .archive-card .img-container img { transition: none; }
+    .archive-card:hover .img-container img { transform: none; }
+    .archive-card .hover-overlay { display: none; }
+    .filter-bar { flex-direction: column; align-items: stretch; gap: 8px !important; }
+    .filter-bar select, .filter-bar input { width: 100% !important; min-width: 0 !important; }
+    .filter-count { margin-left: 0 !important; }
+
+    .about-footer { padding: 60px 20px 40px; }
+    .about-footer p { font-size: 12px; line-height: 1.9; }
+    .site-footer { font-size: 11px; padding: 24px; }
+    .empty-state { padding: 40px 20px; }
+    .empty-state p { font-size: 12px; }
+
+    .analysis-upload { padding: 40px 20px; }
+    .analysis-upload .upload-text { font-size: 12px; }
+    .analysis-preview img { max-width: 100%; }
+    .section { padding: 24px 0; }
+    .section h2 { font-size: 10px; }
+    .section h3 { font-size: 18px; }
+    .section p { font-size: 12px; }
+
+    .fade-up { transform: translateY(10px); transition: opacity 500ms ease, transform 500ms ease; }
   }
 
   @media print {
@@ -442,6 +506,9 @@
     <a data-page="archive" href="#archive">档案</a>
     <a data-page="about" href="#about">关于</a>
   </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <div class="page active" id="page-home">
