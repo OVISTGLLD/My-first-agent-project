@@ -1496,10 +1496,11 @@ var EMBEDDED_DATA=[{"file":"project-01.jpg","title":"无尽夏日","location":"�
     });
   }
 
-  var archiveData=[], archiveEdits={};
+  var archiveData=[], archiveEdits={}, archiveHidden={};
   function loadArchive(){
     try{ archiveEdits=JSON.parse(localStorage.getItem('archiveEdits')||'{}'); }catch(e){ archiveEdits={}; }
-    archiveData=EMBEDDED_DATA.map(function(p){ var e=archiveEdits[p.file]; return e?Object.assign({},p,e):p; });
+    try{ archiveHidden=JSON.parse(localStorage.getItem('archiveHidden')||'{}'); }catch(e){ archiveHidden={}; }
+    archiveData=EMBEDDED_DATA.filter(function(p){ return !archiveHidden[p.file]; }).map(function(p){ var e=archiveEdits[p.file]; return e?Object.assign({},p,e):p; });
     renderArchive(); updateFilters();
     document.getElementById('archiveCount').textContent=archiveData.length+' 张照片';
   }
@@ -1525,6 +1526,7 @@ var EMBEDDED_DATA=[{"file":"project-01.jpg","title":"无尽夏日","location":"�
     archiveEdits[file]=edits;
     saveEdits(); loadArchive(); window.navigateToSingle(file);
   };
+  window.hideFromArchive=function(file){ if(!confirm("确定要从档案中隐藏这张照片吗？"))return; archiveHidden[file]=true; localStorage.setItem("archiveHidden",JSON.stringify(archiveHidden)); loadArchive(); var sp=document.getElementById("page-single"); if(sp)sp.classList.remove("active"); var ap=document.getElementById("page-archive"); if(ap)ap.classList.add("active"); setTimeout(function(){window.scrollTo(0,0);},10); };
   window.exportEdits=function(){
     var merged=EMBEDDED_DATA.map(function(p){ return Object.assign({},p,archiveEdits[p.file]||{}); });
     var blob=new Blob([JSON.stringify(merged,null,2)],{type:'application/json'});
