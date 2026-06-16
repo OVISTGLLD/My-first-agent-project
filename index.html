@@ -1663,7 +1663,10 @@ var EMBEDDED_DATA=[{"file":"project-01.jpg","title":"无尽夏日","location":"�
     if(k){ var kw=k.split(/[,，、\s]+/).filter(Boolean); if(kw.length)edits.keywords=kw; }
     edits.notes=n;
     archiveEdits[file]=edits;
-    saveEdits(); loadArchive(); window.navigateToSingle(file);
+    saveEdits();
+    var pos=archiveScrollPos;
+    loadArchive(); window.navigateToSingle(file);
+    archiveScrollPos=pos;
   };
   window.hideFromArchive=function(file){ if(!confirm("确定要从档案中隐藏这张照片吗？"))return; archiveHidden[file]=true; localStorage.setItem("archiveHidden",JSON.stringify(archiveHidden)); loadArchive(); archiveScrollPos=0; var sp=document.getElementById("page-single"); if(sp)sp.classList.remove("active"); var ap=document.getElementById("page-archive"); if(ap)ap.classList.add("active"); setTimeout(function(){window.scrollTo(0,archiveScrollPos);renderArchive();},10); };
   var _origNavigateToSingle=window.navigateToSingle; window.navigateToSingle=function(file){_origNavigateToSingle(file);setTimeout(function(){var c=document.querySelector('#page-single div[style*=\"max-width:800px\"]');if(c&&!c.querySelector('[data-hide-btn]')){var d=c.querySelector('div[style*=\"display:flex\"][style*=\"gap:16px\"]');if(!d){d=document.createElement('div');d.style.cssText='margin-top:24px;display:flex;gap:16px;';c.appendChild(d);}var b=document.createElement('button');b.className='btn btn-outline';b.style.cssText='border-bottom-color:#c30;color:#c30;margin-left:24px;';b.setAttribute('data-hide-btn','1');b.textContent='从档案中隐藏';b.onclick=function(){window.hideFromArchive(this._hf);};b._hf=file;d.appendChild(b);}},10);};
