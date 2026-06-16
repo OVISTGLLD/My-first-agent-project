@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>摄影师知识库 · 索引</title>
+<style>
+  :root {
+    --bg: #f8f8f6;
+    --card: #ffffff;
+    --text: #2c2c2c;
+    --muted: #888;
+    --accent: #1a1a1a;
+    --border: #e8e8e4;
+    --hover: #f2f0e8;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.7;
+  }
+  .container { max-width: 960px; margin:0 auto; padding: 48px 24px 80px; }
+  h1 { font-size: 28px; font-weight:600; letter-spacing:0.02em; text-align:center; margin-bottom:8px; }
+  .sub { text-align:center; color:var(--muted); font-size:14px; margin-bottom:40px; }
+  .stats { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:32px; }
+  .stat { padding:6px 16px; background:var(--card); border:1px solid var(--border); border-radius:20px; font-size:13px; color:var(--muted); }
+  .stat strong { color:var(--text); }
+  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:12px; }
+  .card {
+    background: var(--card); border:1px solid var(--border); border-radius:10px; padding:18px;
+    transition: all 0.2s; cursor: pointer; text-decoration: none; color: inherit; display: block;
+  }
+  .card:hover { background: var(--hover); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .card h3 { font-size:16px; font-weight:600; margin-bottom:6px; }
+  .card .meta { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px; }
+  .card .tag {
+    padding:2px 10px; background: var(--bg); border:1px solid var(--border); border-radius:12px;
+    font-size:12px; color: var(--muted);
+  }
+  .card .links { font-size:12px; color: var(--muted); margin-top:8px; }
+  .card .links a { color: var(--accent); text-decoration: underline; }
+  .search-box {
+    width: 100%; max-width: 400px; margin: 0 auto 32px; display: block;
+    padding: 10px 16px; font-size:15px; border:1px solid var(--border); border-radius:10px;
+    background: var(--card); outline: none; font-family: inherit; text-align: center;
+  }
+  .search-box:focus { border-color: #aaa; }
+  .no-result { text-align:center; color:var(--muted); padding:40px; display:none; }
+  footer { text-align:center; margin-top:48px; color:var(--muted); font-size:12px; }
+  @media (max-width:600px){ .container { padding: 24px 16px 60px; } }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>📚 摄影师知识库</h1>
+  <p class="sub">每位摄影师独立的档案页面，点击姓名进入详情</p>
+
+  <input type="text" class="search-box" id="search" placeholder="🔍 搜索摄影师…">
+
+  <div class="stats" id="stats"></div>
+  <div class="grid" id="grid"></div>
+  <div class="no-result" id="noResult">未找到匹配的摄影师</div>
+
+  <footer>Photography Project · EndlessSummer Knowledge Base</footer>
+</div>
+
+<script>
+const photographers = [
+  { name:"Sophie Calle（苏菲·卡尔）", file:"sophie-calle.md", country:"法国", style:"观念艺术 / 私摄影 / 叙事摄影", website:"https://www.sophiecalle.art", works:"[Perrotin Gallery](https://www.perrotin.com/artists/Sophie_Calle/1)" },
+  { name:"Nan Goldin（南·戈尔丁）", file:"nan-goldin.md", country:"美国", style:"私摄影 / 纪实摄影 / 自传体", website:"Instagram @nangoldinstudio", works:"[MoMA](https://www.moma.org/artists/7532)" },
+  { name:"深濑昌久", file:"masahisa-fukase.md", country:"日本", style:"私摄影 / 黑白摄影 / 自传体", website:"—", works:"[档案馆](https://www.fukase-masahisa.com)" },
+  { name:"Alec Soth（埃里克·索斯）", file:"alec-soth.md", country:"美国", style:"纪实摄影 / 景观摄影 / 叙事", website:"https://alecsoth.com", works:"[Magnum](https://www.magnumphotos.com/photographer/alec-soth/)" },
+  { name:"川内伦子（Rinko Kawauchi）", file:"rinko-kawauchi.md", country:"日本", style:"诗意摄影 / 私摄影 / 日常", website:"https://rinkokawauchi.com", works:"[Official](https://rinkokawauchi.com)" },
+  { name:"Stephen Shore（斯蒂芬·肖尔）", file:"stephen-shore.md", country:"美国", style:"新彩色摄影 / 景观", website:"https://www.303gallery.com/artists/stephen-shore", works:"[303 Gallery](https://www.303gallery.com/artists/stephen-shore)" },
+  { name:"Thomas Struth（托马斯·施特鲁特）", file:"thomas-struth.md", country:"德国", style:"杜塞尔多夫学派 / 景观 / 类型学", website:"https://www.thomasstruth.com", works:"[Official](https://www.thomasstruth.com)" },
+  { name:"Michael Wolf（迈克尔·沃夫）", file:"michael-wolf.md", country:"德国", style:"纪实 / 城市摄影 / 观念", website:"https://www.michaelwolf.info", works:"[Official](https://www.michaelwolf.info)" },
+  { name:"Nadav Kander（纳达夫·坎德）", file:"nadav-kander.md", country:"以色列/英国", style:"景观摄影 / 环境肖像", website:"https://www.nadavkander.com", works:"[Official](https://www.nadavkander.com)" },
+  { name:"Greg Girard（格雷格·吉拉德）", file:"greg-girard.md", country:"加拿大", style:"纪实 / 夜间摄影 / 城市", website:"https://www.greggirard.com", works:"[Official](https://www.greggirard.com)" },
+  { name:"杉本博司", file:"hiroshi-sugimoto.md", country:"日本", style:"观念摄影 / 极简 / 时间", website:"https://www.sugimotohiroshi.com", works:"[Official](https://www.sugimotohiroshi.com)" },
+  { name:"Richard Misrach（理查德·米斯拉克）", file:"richard-misrach.md", country:"美国", style:"景观摄影 / 环境 / 彩色", website:"https://www.richardmisrach.com", works:"[Fraenkel](https://fraenkelgallery.com/artists/richard-misrach)" },
+  { name:"Jem Southam（杰姆·索瑟姆）", file:"jem-southam.md", country:"英国", style:"景观 / 新地形 / 慢速", website:"—", works:"[Robert Mann](https://www.robertmann.com/artists/jem-southam)" },
+  { name:"山本昌男", file:"masao-yamamoto.md", country:"日本", style:"诗意摄影 / 极简 / 自然", website:"—", works:"[作品集](https://www.masao-yamamoto.com)" },
+  { name:"Edward Burtynsky（爱德华·伯汀斯基）", file:"edward-burtynsky.md", country:"加拿大", style:"工业景观 / 航拍 / 环境", website:"https://www.edwardburtynsky.com", works:"[Official](https://www.edwardburtynsky.com)" },
+  { name:"Robert Adams（罗伯特·亚当斯）", file:"robert-adams.md", country:"美国", style:"新地形 / 景观 / 黑白", website:"—", works:"[Fraenkel](https://fraenkelgallery.com/artists/robert-adams)" },
+  { name:"Andreas Gursky（安德烈亚斯·古尔斯基）", file:"andreas-gursky.md", country:"德国", style:"杜塞尔多夫学派 / 巨幅", website:"https://www.andreasgursky.com", works:"[Spruth Magers](https://spruethmagers.com/artists/andreas-gursky)" },
+  { name:"张克纯", file:"zhang-kechun.md", country:"中国", style:"景观摄影 / 环境肖像 / 当代", website:"—", works:"[Blindspot](https://blindspotgallery.com/artists/zhang-kechun/)" },
+  { name:"Mitch Epstein（米奇·爱泼斯坦）", file:"mitch-epstein.md", country:"美国", style:"景观 / 环境 / 纪实", website:"https://mitchepstein.net", works:"[Official](https://mitchepstein.net)" },
+  { name:"石内都", file:"miyako-ishiuchi.md", country:"日本", style:"私摄影 / 静物 / 记忆", website:"—", works:"[Third Gallery](https://www.thethirdgalleryaya.com/)" },
+  { name:"Christian Boltanski（波尔坦斯基）", file:"christian-boltanski.md", country:"法国", style:"装置艺术 / 记忆与档案", website:"—", works:"[Marian Goodman](https://www.mariangoodman.com/artists/christian-boltanski)" },
+  { name:"Paul Graham（保罗·格雷厄姆）", file:"paul-graham.md", country:"英国", style:"纪实 / 新彩色 / 日常叙事", website:"https://paulgrahamarchive.com", works:"[Archive](https://paulgrahamarchive.com)" },
+  { name:"Sally Mann（莎莉·曼）", file:"sally-mann.md", country:"美国", style:"私摄影 / 家庭 / 南方哥特", website:"https://sallymann.com", works:"[Official](https://sallymann.com)" },
+  { name:"Taryn Simon（塔林·西蒙）", file:"taryn-simon.md", country:"美国", style:"档案式 / 观念 / 调查", website:"https://tarynsimon.com", works:"[Official](https://tarynsimon.com)" },
+  { name:"Wolfgang Tillmans（蒂尔曼斯）", file:"wolfgang-tillmans.md", country:"德国", style:"当代艺术 / 装置 / 跨媒介", website:"https://tillmans.co.uk", works:"[Official](https://tillmans.co.uk)" },
+  { name:"William Eggleston（埃格尔斯顿）", file:"william-eggleston.md", country:"美国", style:"新彩色摄影 / 日常 / 南方", website:"https://egglestontrust.com", works:"[Foundation](https://egglestontrust.com)" },
+  { name:"Jeff Wall（杰夫·沃尔）", file:"jeff-wall.md", country:"加拿大", style:"置景摄影 / 观念 / 灯箱", website:"—", works:"[White Cube](https://www.whitecube.com/artists/jeff-wall)" },
+  { name:"Todd Hido（托德·希多）", file:"todd-hido.md", country:"美国", style:"夜间摄影 / 郊区 / 氛围", website:"https://www.toddhido.com", works:"[Official](https://www.toddhido.com)" },
+  { name:"Viviane Sassen（薇薇安·萨森）", file:"viviane-sassen.md", country:"荷兰", style:"时尚 / 观念 / 非洲 / 超现实", website:"https://www.vivianesassen.com", works:"[Official](https://www.vivianesassen.com)" },
+];
+
+const grid = document.getElementById('grid');
+const search = document.getElementById('search');
+const noResult = document.getElementById('noResult');
+const stats = document.getElementById('stats');
+
+function render(data) {
+  grid.innerHTML = '';
+  if (data.length === 0) { noResult.style.display = 'block'; }
+  else { noResult.style.display = 'none'; }
+  data.forEach(p => {
+    const card = document.createElement('a');
+    card.className = 'card';
+    card.href = p.file;
+    card.innerHTML = `
+      <h3>${p.name}</h3>
+      <div class="meta">
+        <span class="tag">${p.country}</span>
+        <span class="tag">${p.style}</span>
+      </div>
+      <div class="links">
+        ${p.website !== '—' ? `<a href="${p.website}" target="_blank" onclick="event.stopPropagation()">🌐 官网</a>` : ''}
+        ${p.works ? `&nbsp;${p.works}` : ''}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// Stats
+const countries = [...new Set(photographers.map(p => p.country))];
+stats.innerHTML = `
+  <span class="stat">共 <strong>${photographers.length}</strong> 位摄影师</span>
+  <span class="stat">来自 <strong>${countries.length}</strong> 个国家/地区</span>
+`;
+
+// Init
+render(photographers);
+
+// Search
+search.addEventListener('input', () => {
+  const q = search.value.toLowerCase().trim();
+  if (!q) { render(photographers); return; }
+  const filtered = photographers.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    p.country.includes(q) ||
+    p.style.includes(q)
+  );
+  render(filtered);
+});
+</script>
+
+</body>
+</html>
