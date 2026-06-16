@@ -1317,7 +1317,7 @@ var EMBEDDED_DATA=[{"file":"project-01.jpg","title":"无尽夏日","location":"�
   document.getElementById('exportBtn').addEventListener('click', function(){
     if (!resultEl.classList.contains('visible')||!resultEl.textContent.trim()) { alert('请先生成分析报告后再导出。'); return; }
     var md = '# ' + document.getElementById('projName').value.trim() + ' 分析报告\n\n';
-    md += '> 由 project_analyst v3 生成\n\n';
+    md += '> 由 project_analyst v4 生成\n\n';
     var sections = resultEl.querySelectorAll('.section');
     sections.forEach(function(s){
       var h2 = s.querySelector('h2');
@@ -1346,7 +1346,7 @@ var EMBEDDED_DATA=[{"file":"project-01.jpg","title":"无尽夏日","location":"�
     if(!loc) loc = '待指定';
     if(!time) time = '待指定';
 
-    var html = '<div class="section"><div class="section-header" style="display:block;"><span class="section-icon"></span><h2>分析报告</h2></div><h3>' + name + '</h3><p style="font-size:11px;color:#aaa;margin-top:4px;">' + loc + ' · ' + time + '</p><p style="font-size:10px;color:#aaa;">由 project_analyst v3 生成</p></div>';
+    var html = '<div class="section"><div class="section-header" style="display:block;"><span class="section-icon"></span><h2>分析报告</h2></div><h3>' + name + '</h3><p style="font-size:11px;color:#aaa;margin-top:4px;">' + loc + ' · ' + time + '</p><p style="font-size:10px;color:#aaa;">由 project_analyst v4 生成</p></div>';
 
     // 1. Overview
     var ov = '<p>在' + loc + '，始于' + time + '。';
