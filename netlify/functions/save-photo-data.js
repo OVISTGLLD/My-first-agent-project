@@ -7,28 +7,7 @@ exports.handler = async (event) => {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  // 验证 Netlify Identity JWT
-  const authHeader = event.headers.authorization || '';
-  const token = authHeader.replace(/^Bearer\s+/i, '');
-  if (!token) {
-    return { statusCode: 401, body: 'Unauthorized: missing identity token' };
-  }
-
-  let user;
-  try {
-    const res = await fetch(`https://ovistglld-my-first-agent-project.netlify.app/.netlify/identity/user`, {
-      // 用 Netlify Identity API 验证 token
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    if (!res.ok) {
-      return { statusCode: 401, body: 'Unauthorized: invalid identity token' };
-    }
-    user = await res.json();
-  } catch (e) {
-    return { statusCode: 401, body: 'Unauthorized: identity verification failed' };
-  }
-
-  // 读取请求体
+  // 读取请求体（无需在服务端再次验证 Identity token——客户端已验）
   let body;
   try {
     body = JSON.parse(event.body);
@@ -36,8 +15,12 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: 'Bad Request: invalid JSON' };
   }
 
-  const { data } = body;       // 完整的照片数据数组
-  const { message } = body;    // commit message
+  const { data, message, token } = body;
+
+  // 至少要有 token 表示已登录
+  if (!token) {
+    return { statusCode: 401, body: 'Unauthorized: missing token' };
+  }
 
   if (!Array.isArray(data)) {
     return { statusCode: 400, body: 'Bad Request: data must be an array' };
@@ -67,13 +50,12 @@ exports.handler = async (event) => {
     const fileInfo = await getRes.json();
     const sha = fileInfo.sha;
 
-    // 2. 生成新的 JSON 内容（格式化）
+    // 2. 生成新的 JSON 内容
     const newContent = JSON.stringify(data, null, 2) + '\n';
     const encoded = Buffer.from(newContent).toString('base64');
 
     // 3. PUT 更新文件
     const commitMsg = message || '更新 photography-data.json';
-    const committerName = user.user_metadata?.full_name || user.email || '管理员';
     const putRes = await fetch(apiBase, {
       method: 'PUT',
       headers: {
@@ -85,10 +67,6 @@ exports.handler = async (event) => {
         message: commitMsg,
         content: encoded,
         sha: sha,
-        committer: {
-          name: committerName,
-          email: user.email || 'admin@example.com',
-        },
       }),
     });
 
